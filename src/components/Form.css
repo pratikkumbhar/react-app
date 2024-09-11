@@ -1,0 +1,16 @@
+#lable1:has(+ #input1:hover) {
+    /* transform: scale(0.8); */
+    font-size: 15px;
+    transition-duration: 200ms;
+  }
+  #lable2:has(+ #input2:hover) {
+    /* transform: scale(0.8); */
+    font-size: 15px;
+    transition-duration: 200ms;
+  }
+  #lable3:has(+ #input3:hover) {
+    /* transform: scale(0.8); */
+    font-size: 15px;
+    transition-duration: 200ms;
+  }
+  
