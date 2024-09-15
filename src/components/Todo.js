@@ -4,16 +4,26 @@ import EditLogo from "../assets/pen-to-square-solid.svg";
 import "./Todo.css";
 import TodoList from "./TodoList";
 function Todo() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([
+    { id: 1, title: "t1", task: "task" },
+    { id: 2, title: "t2", task: "task" },
+    { id: 3, title: "t3", task: "task" },
+  ]);
   const [title, setTitle] = useState("");
   const [task, setTask] = useState("");
+  const [edit, setEdit] = useState(false);
+  const [update, setUpdate] = useState();
   const createTask = (e) => {
     e.preventDefault();
     setList((prev) => [...prev, { id: list.length, title: title, task: task }]);
   };
-  const onEditClicked = () => {};
-  const onDeleteClicked = (index) => {
-    console.log(index);
+  const onEditClicked = (id) => {
+    setEdit(true);
+    const updateItem = list.filter((item) => item.id === id)[0];
+    setUpdate(updateItem);
+  };
+  const onDeleteClicked = (id) => {
+    setList(list.filter((item) => item.id !== id));
   };
   return (
     <section className="container mx-auto my-10 max-w-[1200px] h-[90vh] bg-emerald-200 rounded-xl p-7">
@@ -31,6 +41,7 @@ function Todo() {
             id="input1"
             className=" h-10  rounded px-2 py-1 text-lg text-semibold bg-emerald-50 text-emerald-900 font-semibold outline-none "
             type="text"
+            value={edit ? update.title : ""}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -44,6 +55,7 @@ function Todo() {
           </lable>
           <textarea
             id="input1"
+            value={edit ? update.task : ""}
             onChange={(e) => {
               setTask(e.target.value);
             }}
@@ -60,7 +72,10 @@ function Todo() {
         <div className="flex flex-col gap-2 w-[50%]">
           {list.map((value, index) => {
             return (
-              <div className="bg-emerald-50 w-[100%] rounded py-4 px-7 flex justify-between  items-center">
+              <div
+                key={index}
+                className="bg-emerald-50 w-[100%] rounded py-4 px-7 flex justify-between  items-center"
+              >
                 <div>
                   <h1 className="text-lg font-extrabold text-emerald-900">
                     {value.title}
@@ -71,12 +86,14 @@ function Todo() {
                   <img
                     src={TrashLogo}
                     alt="not found"
-                    onClick={onDeleteClicked(index)}
+                    className="h-6 hover:scale-95 duration-200 ease-in-out"
+                    onClick={() => onDeleteClicked(value.id)}
                   />
                   <img
                     src={EditLogo}
                     alt="not found"
-                    onClick={onEditClicked()}
+                    onClick={() => onEditClicked(value.id)}
+                    className="h-6 hover:scale-95 duration-200 ease-in-out"
                   />
                 </div>
               </div>
