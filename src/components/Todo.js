@@ -12,15 +12,28 @@ function Todo() {
   const [title, setTitle] = useState("");
   const [task, setTask] = useState("");
   const [edit, setEdit] = useState(false);
-  const [update, setUpdate] = useState();
+  const [update, setUpdate] = useState(null);
   const createTask = (e) => {
     e.preventDefault();
     setList((prev) => [...prev, { id: list.length, title: title, task: task }]);
   };
+  const updateTask = (e) => {
+    console.log("title:" + title + "task:" + task);
+    setEdit(false);
+    const prevList = [...list];
+    prevList[update.id - 1] = { id: update.id, title: title, task: task };
+    setList(prevList);
+
+    e.preventDefault();
+  };
   const onEditClicked = (id) => {
-    setEdit(true);
-    const updateItem = list.filter((item) => item.id === id)[0];
-    setUpdate(updateItem);
+    if (update == null) {
+      setEdit(true);
+      const updateItem = list.filter((item) => item.id === id)[0];
+      setUpdate(updateItem);
+    } else {
+      alert("first complete prev edit");
+    }
   };
   const onDeleteClicked = (id) => {
     setList(list.filter((item) => item.id !== id));
@@ -41,7 +54,7 @@ function Todo() {
             id="input1"
             className=" h-10  rounded px-2 py-1 text-lg text-semibold bg-emerald-50 text-emerald-900 font-semibold outline-none "
             type="text"
-            value={edit ? update.title : ""}
+            defaultValue={edit ? update.title : ""}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -55,7 +68,7 @@ function Todo() {
           </lable>
           <textarea
             id="input1"
-            value={edit ? update.task : ""}
+            defaultValue={edit ? update.task : ""}
             onChange={(e) => {
               setTask(e.target.value);
             }}
@@ -63,13 +76,14 @@ function Todo() {
             type="text"
           />
           <button
-            onClick={createTask}
+            onClick={edit ? updateTask : createTask}
             className="bg-emerald-700 w-[150px] h-[40px] text-emerald-50 font-extrabold text-lg rounded-md mt-7 hover:scale-95 ease-in-out duration-150"
           >
-            Create
+            {edit ? "Edit" : "Create"}
           </button>
         </div>
         <div className="flex flex-col gap-2 w-[50%]">
+          <h1 className="text-emerald-800 font-semibold text-lg">Todos</h1>
           {list.map((value, index) => {
             return (
               <div
