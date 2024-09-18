@@ -13,4 +13,17 @@
     font-size: 15px;
     transition-duration: 200ms;
   }
-  
+  .dot1 {
+      animation: example 1.2s infinite;
+      animation-delay: 3s;
+  } .dot2 {
+      animation: example 1.2s infinite;
+      animation-delay: 2s;
+  } .dot3 {
+      animation: example 1.2s infinite;
+      animation-delay: 1s;
+  }
+  @keyframes example {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
