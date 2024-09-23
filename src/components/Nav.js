@@ -23,6 +23,9 @@ export default function Nav() {
           <li className="bg-red-600 rounded px-4 py-2 cursor-pointer hover:scale-105 duration-200">
             <Link to={"/todo"}>Todo</Link>
           </li>
+          <li className="bg-red-600 rounded px-4 py-2 cursor-pointer hover:scale-105 duration-200">
+            <Link to={"/fetch"}>Fetch API</Link>
+          </li>
         </ul>
       </nav>
     </>

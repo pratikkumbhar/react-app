@@ -7,6 +7,7 @@ import Counter from "./components/Counter";
 import Todo from "./components/Todo";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
+import Fetch from "./components/Fetch";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/counter" element={<Counter />} />
         <Route path="/todo" element={<Todo />} />
+        <Route path="/fetch" element={<Fetch />} />
       </Routes>
     </BrowserRouter>
   );
