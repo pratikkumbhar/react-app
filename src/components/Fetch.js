@@ -73,37 +73,47 @@ export default function Fetch() {
     const options = {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
+        
+         
+          'Content-Type': 'application/json',
+        
       },
       body: JSON.stringify(todo),
     };
     fetch("https://api.freeapi.app/api/v1/todos" + uid, options)
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
+       
+          console.log("update data successfully : " +data)
           setTitle("");
           setDesc("");
-          alert("Successfully Updated");
+          setUpdate(false);
+          setShow(false);
           getAllData();
-        }
-      })
-
-      .catch((error) => console.log("create data : " + error));
-    setShow(false);
-    setUpdate(false);
+        
+      }).catch((error) => {
+        setUpdate(false);
+          setShow(false);
+          getAllData();
+          setTitle("");
+          setDesc("");
+        console.log("update data : " + error)
+      }
+    );
+    
   };
 
   const onDelete = (id) => {
     setDeleteId(id);
   };
   useEffect(() => {
-    // getAllData();
+      getAllData();
   });
   const onEdit = (id) => {
     todo.data.map((todo) => {
       if (todo._id == id) {
-        // setTitle(todo.title);
-        // setDesc(todo.description);
+        setTitle(todo.title);
+        setDesc(todo.description);
       }
     });
     setShow(true);
